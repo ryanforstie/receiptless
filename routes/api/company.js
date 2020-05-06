@@ -79,4 +79,35 @@ router.post(
   }
 );
 
+// @router   GET api/company
+// @desc     Get all companies
+// @access   Public
+router.get('/', async (req, res) => {
+  try {
+    const companies = await Company.find().populate('user', ['name', 'avatar']);
+    res.json(companies);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @router   GET api/company/user/:user_id
+// @desc     Get company by user id
+// @access   Public
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const company = await Company.findOne({
+      user: req.params.user_id,
+    }).populate('user', ['name', 'avatar']);
+
+    // Check if there is a company for the user
+    if (!company) return res.status(400).json({ msg: 'Company is not found' });
+    res.json(company);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
