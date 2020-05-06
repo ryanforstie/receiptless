@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://ryanforstie:ryanforstie@receiptless-5ggzs.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://ryanforstie:ryanforstie@receiptless-5ggzs.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtToken": "mysecrettoken"
 }
