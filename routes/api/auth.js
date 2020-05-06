@@ -73,7 +73,7 @@ router.post(
       jwt.sign(
         payload,
         config.get('jwtToken'),
-        { expiresIn: 3600000 }, //------------------------------------Change for production to one hours--------------------------
+        { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
           // Return token to client if no errors
