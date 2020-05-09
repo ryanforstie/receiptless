@@ -127,10 +127,10 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 
-// @router   PUT api/company/receipts
-// @desc     Add a company receipt
+// @router   POST api/company/receipts
+// @desc     Add a new company receipt
 // @access   Private
-router.put(
+router.post(
   '/receipts',
   [
     auth,
@@ -164,6 +164,58 @@ router.put(
       const company = await Company.findOne({ user: req.user.id });
       // Push new receipt to front of list
       company.receipts.unshift(newReceipt);
+      // Save to database
+      await company.save();
+      res.json(company);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @router   PUT api/company/receipts/receipt_id
+// @desc     Update a company receipt
+// @access   Private
+router.put(
+  '/receipts/:receipt_id',
+  [
+    auth,
+    [
+      check('date', 'Date is required').not().isEmpty(),
+      check('merchant', 'Merchant is required').not().isEmpty(),
+      check('description', 'Description is required').not().isEmpty(),
+      check('amount', 'Amount is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    // If there are errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // If there are no errors
+    const { date, merchant, description, amount } = req.body;
+
+    // Set values
+    const upatedReceipt = {
+      date,
+      merchant,
+      description,
+      amount,
+    };
+
+    // Add to database
+    try {
+      const company = await Company.findOne({ user: req.user.id });
+
+      // Update receipt with new data
+      const updateIndex = company.receipts
+        .map((item) => item.id)
+        .indexOf(req.params.receipt_id);
+      company.receipts.splice(updateIndex, 1, upatedReceipt);
+
       // Save to database
       await company.save();
       res.json(company);
