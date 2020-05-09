@@ -127,4 +127,72 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 
+// @router   PUT api/company/receipts
+// @desc     Add a company receipt
+// @access   Private
+router.put(
+  '/receipts',
+  [
+    auth,
+    [
+      check('date', 'Date is required').not().isEmpty(),
+      check('merchant', 'Merchant is required').not().isEmpty(),
+      check('description', 'Description is required').not().isEmpty(),
+      check('amount', 'Amount is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    // If there are errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // If there are no errors
+    const { date, merchant, description, amount } = req.body;
+
+    // Set values
+    const newReceipt = {
+      date,
+      merchant,
+      description,
+      amount,
+    };
+
+    // Add to database
+    try {
+      const company = await Company.findOne({ user: req.user.id });
+      // Push new receipt to front of list
+      company.receipts.unshift(newReceipt);
+      // Save to database
+      await company.save();
+      res.json(company);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @router   DELETE api/company/receipts/:receipt_id
+// @desc     Delete a company receipt
+// @access   Private
+router.delete('/receipts/:receipt_id', auth, async (req, res) => {
+  try {
+    const company = await Company.findOne({ user: req.user.id });
+
+    // Get the remove index
+    const removeIndex = company.receipts
+      .map((item) => item.id)
+      .indexOf(req.params.receipt_id);
+    company.receipts.splice(removeIndex, 1);
+
+    await company.save();
+    res.json(company);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
