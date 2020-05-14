@@ -1,6 +1,6 @@
 /* Global Styles */
 :root {
-  --primary-color: #17a2b8;
+  --primary-color: #2565ae;
   --dark-color: #343a40;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -226,7 +226,6 @@ img {
 
 /* Overlay */
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -308,7 +307,6 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
 }
 
@@ -318,8 +316,25 @@ button {
 
 .navbar a {
   color: #fff;
-  padding: 0.45rem;
-  margin: 0 0.25rem;
+  padding: 1rem;
+  margin: 0 0.5rem;
+  line-height: 2rem;
+}
+
+.navbar h1 a {
+  text-transform: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li:last-child {
+  background-color: rgba(120, 120, 120, 0.4);
+  border-radius: 0.2rem;
+  margin-left: 0.5rem;
+}
+
+.navbar li:first-child {
+  border-right: 2px solid #fff;
 }
 
 .navbar a:hover {
@@ -333,7 +348,7 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background-color: #000;
+  background-color: var(--dark-color);
   height: 100vh;
 }
 
