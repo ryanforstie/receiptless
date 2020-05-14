@@ -1,21 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Functional component
 export const Navbar = () => {
   return (
     <nav className='navbar bg-dark'>
       <h1>
-        <a href='index.html'>Receiptless</a>
+        <Link to='/'>Receiptless</Link>
       </h1>
       <ul>
         <li>
-          <a href='companies.html'>Companies</a>
+          <Link to='!#'>Companies</Link>
         </li>
         <li>
-          <a href='login.html'>Login</a>
+          <Link to='/login'>Login</Link>
         </li>
         <li>
-          <a href='signup.html'>Signup</a>
+          <Link to='/signup'>Signup</Link>
         </li>
       </ul>
     </nav>
