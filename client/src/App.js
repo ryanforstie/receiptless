@@ -4,7 +4,7 @@ import './App.css';
 import { Navbar } from './components/layout/Navbar';
 import { Landing } from './components/layout/Landing';
 import { Login } from './components/auth/Login';
-import { Signup } from './components/auth/Signup';
+import Signup from './components/auth/Signup';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';

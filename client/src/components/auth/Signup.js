@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
+// For redux
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
-export const Signup = () => {
+const Signup = ({ setAlert }) => {
   // Set form data
   const [formData, setFormData] = useState({
     name: '',
@@ -22,7 +25,7 @@ export const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords do not match');
+      setAlert('Passwords do not match', 'danger');
     } else {
       console.log('Success');
       // const newUser = {
@@ -100,8 +103,11 @@ export const Signup = () => {
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
-        Already have an account? <Link to='/login'>Sign In</Link>
+        Already have an account? <Link to='/login'>Login</Link>
       </p>
     </Fragment>
   );
 };
+
+// For calling redux actions
+export default connect(null, { setAlert })(Signup);
