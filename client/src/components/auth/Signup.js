@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // import axios from 'axios';
 // For redux
 import { connect } from 'react-redux';
@@ -107,6 +108,10 @@ const Signup = ({ setAlert }) => {
       </p>
     </Fragment>
   );
+};
+
+Signup.prototype = {
+  setAlert: PropTypes.func.isRequired,
 };
 
 // For calling redux actions
