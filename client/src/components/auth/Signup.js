@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import axios from 'axios';
 // For redux
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { signup } from '../../actions/auth';
 
-const Signup = ({ setAlert }) => {
+const Signup = ({ setAlert, signup }) => {
   // Set form data
   const [formData, setFormData] = useState({
     name: '',
@@ -28,25 +28,7 @@ const Signup = ({ setAlert }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      console.log('Success');
-      // const newUser = {
-      //   name,
-      //   email,
-      //   password,
-      // };
-
-      // try {
-      //   const config = {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   };
-      //   const body = JSON.stringify(newUser);
-      //   const res = await axios.post('/api/users', body, config);
-      //   console.log(res.data);
-      // } catch (err) {
-      //   console.error(err.response.data);
-      // }
+      signup({ name, email, password });
     }
   };
 
@@ -112,7 +94,8 @@ const Signup = ({ setAlert }) => {
 
 Signup.prototype = {
   setAlert: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
 };
 
 // For calling redux actions
-export default connect(null, { setAlert })(Signup);
+export default connect(null, { setAlert, signup })(Signup);
