@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // For redux
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 
-const Signup = ({ setAlert, signup }) => {
+const Signup = ({ setAlert, signup, isAuthenticated }) => {
   // Set form data
   const [formData, setFormData] = useState({
     name: '',
@@ -31,6 +31,11 @@ const Signup = ({ setAlert, signup }) => {
       signup({ name, email, password });
     }
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -95,7 +100,13 @@ const Signup = ({ setAlert, signup }) => {
 Signup.prototype = {
   setAlert: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
+// To get the auth state
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
 // For calling redux actions
-export default connect(null, { setAlert, signup })(Signup);
+export default connect(mapStateToProps, { setAlert, signup })(Signup);
