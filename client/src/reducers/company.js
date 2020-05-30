@@ -1,6 +1,6 @@
 // Company Reducer
 
-import { GET_COMPANY, COMPANY_ERROR } from '../actions/types';
+import { GET_COMPANY, COMPANY_ERROR, CLEAR_COMPANY } from '../actions/types';
 
 const initialState = {
   company: null,
@@ -23,6 +23,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: payload,
+        loading: false,
+      };
+    case CLEAR_COMPANY:
+      return {
+        ...state,
+        company: null,
         loading: false,
       };
     default:

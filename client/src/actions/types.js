@@ -10,4 +10,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const GET_COMPANY = 'GET_COMPANY';
+export const CLEAR_COMPANY = 'CLEAR_COMPANY';
 export const COMPANY_ERROR = 'COMPANY_ERROR';
