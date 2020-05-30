@@ -7,6 +7,9 @@ const CompanySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
+  industry: {
+    type: String,
+  },
   company: {
     type: String,
     required: true,

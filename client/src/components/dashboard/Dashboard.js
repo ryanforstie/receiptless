@@ -29,8 +29,8 @@ const Dashboard = ({
       ) : (
         <Fragment>
           <p>You have not set up a company, please set one up.</p>
-          <Link to='/create-company' className='btn btn-primary my-1'>
-            Create Company
+          <Link to='/add-company' className='btn btn-primary my-1'>
+            Add Company
           </Link>
         </Fragment>
       )}
