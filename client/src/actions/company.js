@@ -18,3 +18,39 @@ export const getCurrentCompany = () => async (dispatch) => {
     });
   }
 };
+
+// Add or update company
+export const addCompany = (formData, history, edit = false) => async (
+  dispatch
+) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.post('/api/company', formData, config);
+
+    dispatch({
+      type: GET_COMPANY,
+      payload: res.data,
+    });
+
+    dispatch(setAlert(edit ? 'Company Updated' : 'Company Added', 'success'));
+
+    if (!edit) {
+      history.push('/dashboard');
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: COMPANY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

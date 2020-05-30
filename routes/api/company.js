@@ -42,11 +42,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { company, website, location, bio } = req.body;
+    const { industry, company, website, location, bio } = req.body;
 
     // Build company object
     const companyFields = {};
     companyFields.user = req.user.id;
+    if (industry) companyFields.industry = industry;
     if (company) companyFields.company = company;
     if (website) companyFields.website = website;
     if (location) companyFields.location = location;

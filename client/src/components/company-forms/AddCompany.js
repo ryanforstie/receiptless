@@ -1,8 +1,10 @@
 import React, { useState, Fragment } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { addCompany } from '../../actions/company';
 
-const AddCompany = (props) => {
+const AddCompany = ({ addCompany, history }) => {
   // Form data
   const [formData, setFormData] = useState({
     industry: '',
@@ -19,6 +21,11 @@ const AddCompany = (props) => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addCompany(formData, history);
+  };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Add Your Company</h1>
@@ -27,7 +34,7 @@ const AddCompany = (props) => {
         company
       </p>
       <small>* = required field</small>
-      <form className='form'>
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <select
             name='industry'
@@ -93,6 +100,8 @@ const AddCompany = (props) => {
   );
 };
 
-AddCompany.propTypes = {};
+AddCompany.propTypes = {
+  addCompany: PropTypes.func.isRequired,
+};
 
-export default AddCompany;
+export default connect(null, { addCompany })(withRouter(AddCompany));
