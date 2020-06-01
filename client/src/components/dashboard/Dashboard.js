@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentCompany } from '../../actions/company';
-import { DashboardActions } from './DashboardActions';
+import DashboardActions from './DashboardActions';
+import Receipts from './Receipts';
 
 const Dashboard = ({
   getCurrentCompany,
@@ -28,6 +29,7 @@ const Dashboard = ({
       {company !== null ? (
         <Fragment>
           <DashboardActions />
+          <Receipts receipts={company.receipts} />
         </Fragment>
       ) : (
         <Fragment>
