@@ -13,3 +13,4 @@ export const GET_COMPANY = 'GET_COMPANY';
 export const UPDATE_COMPANY = 'UPDATE_COMPANY';
 export const CLEAR_COMPANY = 'CLEAR_COMPANY';
 export const COMPANY_ERROR = 'COMPANY_ERROR';
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';

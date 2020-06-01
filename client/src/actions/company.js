@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_COMPANY, COMPANY_ERROR, UPDATE_COMPANY } from './types';
+import {
+  GET_COMPANY,
+  COMPANY_ERROR,
+  UPDATE_COMPANY,
+  CLEAR_COMPANY,
+  DELETE_ACCOUNT,
+} from './types';
 
 // Get the current users company
 export const getCurrentCompany = () => async (dispatch) => {
@@ -83,5 +89,47 @@ export const addReceipt = (formData, history) => async (dispatch) => {
       type: COMPANY_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+  }
+};
+
+// Delete a receipt
+export const deleteReceipt = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/company/receipts/${id}`);
+
+    dispatch({
+      type: UPDATE_COMPANY,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Receipt Deleted', 'danger'));
+  } catch (err) {
+    dispatch({
+      type: COMPANY_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete account and company
+export const deleteAccount = (id) => async (dispatch) => {
+  if (window.confirm('Are you sure you want to delete your account?')) {
+    try {
+      const res = await axios.delete('/api/company');
+
+      dispatch({
+        type: CLEAR_COMPANY,
+      });
+      dispatch({
+        type: DELETE_ACCOUNT,
+      });
+
+      dispatch(setAlert('Account Deleted', 'danger'));
+    } catch (err) {
+      dispatch({
+        type: COMPANY_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
+import { deleteReceipt } from '../../actions/company';
 
-const Receipts = ({ receipts }) => {
+const Receipts = ({ receipts, deleteReceipt }) => {
   // Map through receipts array and display in table body
   const allReceipts = receipts.map((receipt) => (
     <tr key={receipt._id}>
@@ -14,7 +15,12 @@ const Receipts = ({ receipts }) => {
       <td className='hide-sm'>{receipt.description}</td>
       <td className='hide-sm'>{receipt.amount}</td>
       <td>
-        <button className='btn btn-danger'>Delete</button>
+        <button
+          onClick={() => deleteReceipt(receipt._id)}
+          className='btn btn-danger'
+        >
+          Delete
+        </button>
       </td>
     </tr>
   ));
@@ -40,6 +46,7 @@ const Receipts = ({ receipts }) => {
 
 Receipts.propTypes = {
   receipts: PropTypes.array.isRequired,
+  deleteReceipt: PropTypes.func.isRequired,
 };
 
-export default Receipts;
+export default connect(null, { deleteReceipt })(Receipts);
