@@ -1,10 +1,15 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addCompany } from '../../actions/company';
+import { addCompany, getCurrentCompany } from '../../actions/company';
 
-const AddCompany = ({ addCompany, history }) => {
+const EditCompany = ({
+  company: { company_ERROR, loading }, // ERROR -----------------
+  addCompany,
+  getCurrentCompany,
+  history,
+}) => {
   // Form data
   const [formData, setFormData] = useState({
     industry: '',
@@ -13,6 +18,19 @@ const AddCompany = ({ addCompany, history }) => {
     location: '',
     bio: '',
   });
+
+  // On page load, set the current form data to display on form
+  useEffect(() => {
+    getCurrentCompany();
+
+    setFormData({
+      industry: loading || !industry ? '' : industry,
+      company: loading || !company.company ? '' : company.company,
+      website: loading || !website ? '' : website,
+      location: loading || !location ? '' : location,
+      bio: loading || !bio ? '' : bio,
+    });
+  }, [loading]);
 
   // Deconstruct
   const { industry, company, website, location, bio } = formData;
@@ -23,7 +41,7 @@ const AddCompany = ({ addCompany, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addCompany(formData, history);
+    addCompany(formData, history, true);
   };
 
   return (
@@ -100,8 +118,16 @@ const AddCompany = ({ addCompany, history }) => {
   );
 };
 
-AddCompany.propTypes = {
+EditCompany.propTypes = {
   addCompany: PropTypes.func.isRequired,
+  company: PropTypes.object.isRequired,
+  getCurrentCompany: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addCompany })(withRouter(AddCompany));
+const mapStateToProps = (state) => ({
+  company: state.company,
+});
+
+export default connect(mapStateToProps, { addCompany, getCurrentCompany })(
+  withRouter(EditCompany)
+);

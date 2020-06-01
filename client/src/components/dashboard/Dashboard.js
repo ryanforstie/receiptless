@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentCompany } from '../../actions/company';
+import { DashboardActions } from './DashboardActions';
 
 const Dashboard = ({
   getCurrentCompany,
@@ -25,7 +26,9 @@ const Dashboard = ({
         <i className='fas fa-user'></i> Welcome {user && user.name}
       </p>
       {company !== null ? (
-        <Fragment>has</Fragment>
+        <Fragment>
+          <DashboardActions />
+        </Fragment>
       ) : (
         <Fragment>
           <p>You have not set up a company, please set one up.</p>
