@@ -1,6 +1,11 @@
 // Company Reducer
 
-import { GET_COMPANY, COMPANY_ERROR, CLEAR_COMPANY } from '../actions/types';
+import {
+  GET_COMPANY,
+  COMPANY_ERROR,
+  CLEAR_COMPANY,
+  UPDATE_COMPANY,
+} from '../actions/types';
 
 const initialState = {
   company: null,
@@ -14,6 +19,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_COMPANY:
+    case UPDATE_COMPANY:
       return {
         ...state,
         company: payload,
