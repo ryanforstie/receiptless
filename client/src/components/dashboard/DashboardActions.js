@@ -10,9 +10,6 @@ const DashboardActions = () => {
       <Link to='/add-receipt' className='btn btn-light'>
         <i className='fas fa-scroll text-primary'></i> Add Receipt
       </Link>
-      <Link to='edit-receipt' className='btn btn-light'>
-        <i className='fas fa-edit text-primary'></i> Edit Receipt
-      </Link>
     </div>
   );
 };

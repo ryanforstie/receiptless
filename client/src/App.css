@@ -1,10 +1,10 @@
 /* Global Styles */
 :root {
-  --primary-color: #2565ae;
-  --dark-color: #343a40;
+  --primary-color: #572abf;
+  --dark-color: #2d1c56;
   --light-color: #f4f4f4;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
+  --danger-color: #cc3a2d;
+  --success-color: #2ac72d;
 }
 
 * {
@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -263,31 +263,6 @@ button {
   font: inherit;
 }
 
-.form .social-input {
-  display: flex;
-}
-
-.form .social-input i {
-  padding: 0.5rem;
-  width: 4rem;
-}
-
-.form .social-input i.fa-twitter {
-  color: #38a1f3;
-}
-.form .social-input i.fa-facebook {
-  color: #3b5998;
-}
-.form .social-input i.fa-instagram {
-  color: #3f729b;
-}
-.form .social-input i.fa-youtube {
-  color: #c4302b;
-}
-.form .social-input i.fa-linkedin {
-  color: #0077b5;
-}
-
 .table th,
 .table td {
   padding: 1rem;
@@ -329,13 +304,9 @@ button {
 }
 
 .navbar li:last-child {
-  background-color: rgba(120, 120, 120, 0.4);
+  background-color: rgba(120, 120, 120, 0.3);
   border-radius: 0.2rem;
   margin-left: 0.5rem;
-}
-
-.navbar li:first-child {
-  border-right: 2px solid #fff;
 }
 
 .navbar a:hover {
@@ -381,9 +352,7 @@ button {
   display: grid;
   grid-template-areas:
     'top top'
-    'about about'
-    'exp edu'
-    'github github';
+    'about about';
   grid-gap: 1rem;
 }
 
@@ -412,43 +381,6 @@ button {
 .company-about {
   grid-area: about;
   text-align: center;
-}
-
-.company-about .skills {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.company-exp {
-  grid-area: exp;
-}
-
-.company-edu {
-  grid-area: edu;
-}
-
-.company-exp h2,
-.company-edu h2 {
-  margin-bottom: 1rem;
-}
-
-.company-exp > div,
-.company-edu > div {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: #ccc 1px dotted;
-}
-
-.company-exp > div:last-child,
-.company-edu > div:last-child {
-  border: 0;
-}
-
-.company-exp p,
-.company-edu p {
-  margin: 0.5rem 0;
 }
 
 /* Mobile Styles */
@@ -514,14 +446,7 @@ button {
   .company-grid {
     grid-template-areas:
       'top'
-      'about'
-      'exp'
-      'edu'
-      'github';
-  }
-
-  .company-about .skills {
-    flex-direction: column;
+      'about';
   }
 
   .dash-buttons a {
